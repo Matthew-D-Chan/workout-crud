@@ -57,7 +57,7 @@ async function updateWorkout(id: string, data: {workout: string, sets: string, r
 }
 
 
-export async function GET(_req: NextRequest, context: { params: { id: string } }) {
+export async function GET(_req: NextRequest, context: { params: Record<string, string> }) {
     try {
         const { id } = context.params;
         const workout = await fetchWorkout(id);
@@ -73,7 +73,7 @@ export async function GET(_req: NextRequest, context: { params: { id: string } }
 
 export async function DELETE(
     _req: NextRequest, 
-    context : { params: { id: string } }
+    context : { params: Record<string, string> }
 ) {
     try {
         const { id } = context.params;
@@ -90,7 +90,7 @@ export async function DELETE(
 
 export async function PUT(
     req: NextRequest, 
-    context : { params: { id: string } }
+    context : { params: Record<string, string> }
 ) {
     try {
         const { id } = context.params;
