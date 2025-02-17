@@ -57,9 +57,9 @@ async function updateWorkout(id: string, data: {workout: string, sets: string, r
 }
 
 
-export async function GET(_req: NextRequest, context: { params: Record<string, string> }) {
+export async function GET(req: Request, {params}: { params: { id: string } }) {
     try {
-        const { id } = context.params;
+        const id = params.id;
         const workout = await fetchWorkout(id);
         return NextResponse.json({workout});
     } catch {
@@ -72,11 +72,11 @@ export async function GET(_req: NextRequest, context: { params: Record<string, s
 
 
 export async function DELETE(
-    _req: NextRequest, 
-    context : { params: Record<string, string> }
+    req: Request, 
+    { params } : { params: { id: string } }
 ) {
     try {
-        const { id } = context.params;
+        const id = params.id;
         await deleteWorkout(id);
         return NextResponse.json({message: "Workout deleted"});
     } catch {
@@ -89,11 +89,11 @@ export async function DELETE(
 
 
 export async function PUT(
-    req: NextRequest, 
-    context : { params: Record<string, string> }
+    req: Request, 
+    { params } : { params: { id: string } }
 ) {
     try {
-        const { id } = context.params;
+        const id = params.id;
         const workout = await req.json();
         await updateWorkout(id, workout);
         return NextResponse.json({message: "Workout updated"});
