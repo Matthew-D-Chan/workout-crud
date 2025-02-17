@@ -1,6 +1,6 @@
 import client from "@/lib/appwrite_client";
 import { Databases } from "appwrite";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const database = new Databases(client); // Passing the appwrite client that we imported in 
 
@@ -57,7 +57,7 @@ async function updateWorkout(id: string, data: {workout: string, sets: string, r
 }
 
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(_req: NextRequest, { params }: { params: { id: string } }) {
     try {
         const { id } = params;
         const workout = await fetchWorkout(id);
@@ -72,7 +72,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
 
 
 export async function DELETE(
-    req: Request, 
+    _req: NextRequest, 
     { params } : { params: { id: string } }
 ) {
     try {
@@ -89,7 +89,7 @@ export async function DELETE(
 
 
 export async function PUT(
-    req: Request, 
+    req: NextRequest, 
     { params } : { params: { id: string } }
 ) {
     try {
