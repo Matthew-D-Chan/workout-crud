@@ -57,12 +57,9 @@ async function updateWorkout(id: string, data: {workout: string, sets: string, r
 }
 
 
-export async function GET(
-    req: Request, 
-    { params }: { params: { id: string } }
-) {
+export async function GET(req: Request, { params }: { params: { id: string } }) {
     try {
-        const { id } = await params;
+        const { id } = params;
         const workout = await fetchWorkout(id);
         return NextResponse.json({workout});
     } catch {
@@ -79,7 +76,7 @@ export async function DELETE(
     { params } : { params: { id: string } }
 ) {
     try {
-        const { id } = await params;
+        const { id } = params;
         await deleteWorkout(id);
         return NextResponse.json({message: "Workout deleted"});
     } catch {
@@ -96,7 +93,7 @@ export async function PUT(
     { params } : { params: { id: string } }
 ) {
     try {
-        const { id } = await params;
+        const { id } = params;
         const workout = await req.json();
         await updateWorkout(id, workout);
         return NextResponse.json({message: "Interpretation updated"});
