@@ -59,7 +59,7 @@ async function updateWorkout(id: string, data: {workout: string, sets: string, r
 
 export async function GET(
     req: Request, 
-    { params } : { params: { id: string } }
+    { params }: { params: { id: string } }
 ) {
     try {
         const { id } = await params;
