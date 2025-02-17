@@ -13,7 +13,7 @@ async function fetchWorkout(id: string) {
             id
         );
         return workout
-    } catch (error) {
+    } catch (error: unknown) {
         console.error("Error fetching workout", error);
         throw new Error("Failed to fetch workout");
     }
@@ -31,7 +31,7 @@ async function deleteWorkout(id: string) {
         );
 
         return response;
-    } catch (error) {
+    } catch (error: unknown) {
         console.error("Error deleting workout", error);
         throw new Error("Failed to delete workout");
     }
@@ -50,7 +50,7 @@ async function updateWorkout(id: string, data: {workout: string, sets: string, r
         );
 
         return response;
-    } catch (error) {
+    } catch (error: unknown) {
         console.error("Error updating workout", error);
         throw new Error("Failed to update workout");
     }
@@ -65,7 +65,7 @@ export async function GET(
         const { id } = await params;
         const workout = await fetchWorkout(id);
         return NextResponse.json({workout});
-    } catch (error) {
+    } catch (error: unknown) {
         return NextResponse.json(
             { error: "Failed to fetch interpretation"},
             { status: 500 }
@@ -82,7 +82,7 @@ export async function DELETE(
         const { id } = await params;
         await deleteWorkout(id);
         return NextResponse.json({message: "Workout deleted"});
-    } catch (error) {
+    } catch (error: unknown) {
         return NextResponse.json(
             { error: "Failed to delete interpretation"},
             { status: 500 }
@@ -100,7 +100,7 @@ export async function PUT(
         const workout = await req.json();
         await updateWorkout(id, workout);
         return NextResponse.json({message: "Interpretation updated"});
-    } catch (error) {
+    } catch (error: unknown) {
         return NextResponse.json(
             { error: "Failed to update interpretation"},
             { status: 500 }
