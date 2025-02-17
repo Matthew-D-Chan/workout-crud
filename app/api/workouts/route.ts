@@ -50,7 +50,7 @@ export async function POST(req: Request) {
     try {
         const {workout, sets, reps, weight} = await req.json();
         const data = {workout, sets, reps, weight};
-        const response = await createWorkout(data);
+        await createWorkout(data);
         return NextResponse.json({message: "Workout created"})
     } catch {
         return NextResponse.json(
