@@ -57,10 +57,10 @@ async function updateWorkout(id: string, data: {workout: string, sets: string, r
 }
 
 
-export async function GET(_req: NextRequest, {params}: { params?: Record<string, string> }) {
+export async function GET(_req: NextRequest, {params}: { params: { id: string } }) {
     try {
-        if (!params?.id) {
-            return NextResponse.json({error: "invalid ID paramter" }, {status: 500});
+        if (!params.id) {
+            return NextResponse.json({ error: "Invalid ID parameter"}, { status: 400});
         }
         const workout = await fetchWorkout(params.id);
         return NextResponse.json({workout});
@@ -75,11 +75,11 @@ export async function GET(_req: NextRequest, {params}: { params?: Record<string,
 
 export async function DELETE(
     _req: NextRequest, 
-    { params } : { params?: Record<string, string> } 
+    { params } : { params: { id: string } }
 ) {
     try {
-        if (!params?.id) {
-            return NextResponse.json({error: "invalid ID paramter" }, {status: 400});
+        if (!params.id) {
+            return NextResponse.json({ error: "Invalid ID parameter"}, { status: 400});
         }
         await deleteWorkout(params.id);
         return NextResponse.json({message: "Workout deleted"});
@@ -94,11 +94,11 @@ export async function DELETE(
 
 export async function PUT(
     req: NextRequest, 
-    { params } : { params?: Record<string, string> }
+    { params } : { params: { id: string } }
 ) {
     try {
-        if (!params?.id) {
-            return NextResponse.json({error: "invalid ID paramter" }, {status: 400});
+        if (!params.id) {
+            return NextResponse.json({ error: "Invalid ID parameter"}, { status: 400});
         }
         const workout = await req.json();
         await updateWorkout(params.id, workout);
