@@ -28,8 +28,8 @@ export default function Home() {
         }
         const data = await response.json();
         setWorkouts(data);
-      } catch (error) {
-        console.log("Error ", error);
+      } catch {
+        console.log("Error");
         setError("Failed to load workouts, Please try reloading the page")
       } finally {
         setIsLoading(false);
@@ -45,7 +45,7 @@ export default function Home() {
       await fetch(`/api/workouts/${id}`, { method: "DELETE" });
       setWorkouts((prevWorkouts) => 
         prevWorkouts?.filter((i) => i.$id !== id))// updating UI by filtering out the id found (the one we want deleted)
-    } catch (error) {
+    } catch {
       setError("Failed to delete interpretation. Please try again.")
     } 
   };

@@ -1,6 +1,6 @@
 'use client'
 import { useRouter } from 'next/navigation';
-import { Router } from 'next/router';
+// import { Router } from 'next/router';
 import React, { ChangeEvent } from 'react'
 import { useState } from "react";
 
@@ -47,8 +47,7 @@ const router = useRouter();
         }
 
       router.push("/");
-    } catch (error) {
-        console.log(error);
+    } catch {
         setError("Something went wrong");
     } finally {
         setIsLoading(false);

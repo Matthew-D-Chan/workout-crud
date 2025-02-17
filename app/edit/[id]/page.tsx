@@ -21,7 +21,7 @@ const Edit = ({params}: { params: { id: string } }) => {
 
         const data = await response.json();
         setFormData({workout: data.workout.workout, sets: data.workout.sets, reps: data.workout.reps, weight: data.workout.weight});
-      } catch (error) {
+      } catch {
         setError("Failed to load workout");
       }
     };
@@ -66,8 +66,7 @@ const Edit = ({params}: { params: { id: string } }) => {
       }
 
     router.push("/");
-  } catch (error) {
-      console.log(error);
+  } catch {
       setError("Something went wrong");
   } finally {
       setIsLoading(false);

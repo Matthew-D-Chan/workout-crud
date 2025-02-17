@@ -21,8 +21,8 @@ async function createWorkout(data: {
         );
 
         return response;
-    } catch (error) {
-        console.error('Error creating Workout', error);
+    } catch {
+        console.error('Error creating Workout');
         throw new Error ("Failed to create workout");
     }
 }
@@ -39,8 +39,8 @@ async function fetchWorkouts() {
         );
 
         return response.documents;
-    } catch (error) {
-        console.error('Error fetching Workout', error);
+    } catch {
+        console.error('Error fetching Workout');
         throw new Error ("Failed to fetch workout");
     }
 }
@@ -52,7 +52,7 @@ export async function POST(req: Request) {
         const data = {workout, sets, reps, weight};
         const response = await createWorkout(data);
         return NextResponse.json({message: "Workout created"})
-    } catch (error) {
+    } catch {
         return NextResponse.json(
             {
                 error: "Failed to create interpretation",
@@ -67,7 +67,7 @@ export async function GET() {
     try {
         const workouts = await fetchWorkouts();
         return NextResponse.json(workouts);
-    } catch (error) {
+    } catch {
         return NextResponse.json(
             {error: "Failed to fetch interpretations" },
             { status: 500 }
