@@ -57,10 +57,12 @@ async function updateWorkout(id: string, data: {workout: string, sets: string, r
 }
 
 
-export async function GET(req: Request, {params}: { params: { id: string } }) {
+export async function GET(_req: NextRequest, {params}: { params?: Record<string, string> }) {
     try {
-        const id = params.id;
-        const workout = await fetchWorkout(id);
+        if (!params?.id) {
+            return NextResponse.json({error: "invalid ID paramter" }, {status: 500});
+        }
+        const workout = await fetchWorkout(params.id);
         return NextResponse.json({workout});
     } catch {
         return NextResponse.json(
@@ -72,12 +74,14 @@ export async function GET(req: Request, {params}: { params: { id: string } }) {
 
 
 export async function DELETE(
-    req: Request, 
-    { params } : { params: { id: string } }
+    _req: NextRequest, 
+    { params } : { params?: Record<string, string> } 
 ) {
     try {
-        const id = params.id;
-        await deleteWorkout(id);
+        if (!params?.id) {
+            return NextResponse.json({error: "invalid ID paramter" }, {status: 400});
+        }
+        await deleteWorkout(params.id);
         return NextResponse.json({message: "Workout deleted"});
     } catch {
         return NextResponse.json(
@@ -89,13 +93,15 @@ export async function DELETE(
 
 
 export async function PUT(
-    req: Request, 
-    { params } : { params: { id: string } }
+    req: NextRequest, 
+    { params } : { params?: Record<string, string> }
 ) {
     try {
-        const id = params.id;
+        if (!params?.id) {
+            return NextResponse.json({error: "invalid ID paramter" }, {status: 400});
+        }
         const workout = await req.json();
-        await updateWorkout(id, workout);
+        await updateWorkout(params.id, workout);
         return NextResponse.json({message: "Workout updated"});
     } catch {
         return NextResponse.json(
